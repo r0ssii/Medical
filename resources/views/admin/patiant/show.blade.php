@@ -38,7 +38,7 @@
                   </tr>
                 </tbody>
               </table>
-              <a href="{{route('admin.patiant.index')}}" class="btn btn-default">Back</a>
+              <a href="{{route('admin.patiant.index0')}}" class="btn btn-default">Back</a>
               <a href="{{route('admin.patiant.edit', $patiant->id)}}" class="btn btn-warning">Edit</a>
               <form style="display:inline-block" method="POST" action="{{route('admin.patiant.destroy', $patiant->id)}}">
                 <input type="hidden" name="_method" value="DELETE">

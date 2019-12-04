@@ -23,16 +23,16 @@
               </ul>
             </div>
             @endif
-            <form method="POST" action="{{route('admin.patiant.update', $patiant->id)}}">
+            <form method="POST" action="{{route('admin.patiant.update', $doctor->id)}}">
               <input type="hidden" name="_method" value="PUT">
               <input type="hidden" name="_token" value="{{csrf_token()}}">
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="name" value="{{old('Name', $patiant->name)}}" />
+                <input type="text" class="form-control" id="name" name="name" value="{{old('Name', $doctor->name)}}" />
               </div>
               <div class="form-group">
                 <label for="address">Address</label>
-                <input type="text" class="form-control" id="address" name="address" value="{{old('address', $patiant->address)}}" />
+                <input type="text" class="form-control" id="address" name="address" value="{{old('address', $doctor->address)}}" />
               </div>
               <div class="form-group">
                 <label for="phone">Phone</label>

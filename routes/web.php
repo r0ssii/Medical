@@ -31,3 +31,7 @@ Route::delete('/admin/doctor/{id}', 'Admin\DoctorController@destroy')->name('adm
 
 Route::get('/user/doctor', 'User\DoctorController@index')->name('user.doctor.index');
 Route::get('/user/doctor/{id}', 'Admin\DoctorController@show')->name('admin.doctor.show');
+
+
+Route::get('/admin/patiant, 'PatiantController@index')->name('admin.patiant.index');
+Route::get('/admin/patiant/{id}', 'PatiantController@show')->name('admin.patiant.show');
