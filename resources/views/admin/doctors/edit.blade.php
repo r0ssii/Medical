@@ -23,7 +23,7 @@
               </ul>
             </div>
             @endif
-            <form method="POST" action="{{route('admin.patiant.update', $doctor->id)}}">
+            <form method="POST" action="{{route('admin.doctor.update', $doctor->id)}}">
               <input type="hidden" name="_method" value="PUT">
               <input type="hidden" name="_token" value="{{csrf_token()}}">
               <div class="form-group">
@@ -36,17 +36,17 @@
               </div>
               <div class="form-group">
                 <label for="phone">Phone</label>
-                <input type="text" class="form-control" id="phone" name="phone" value="{{old('phone', $patiant->phone)}}" />
+                <input type="text" class="form-control" id="phone" name="phone" value="{{old('phone', $doctor->phone)}}" />
               </div>
               <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" class="form-control" id="email" name="email" value="{{old('email', $patiant->email)}}" />
+                <input type="text" class="form-control" id="email" name="email" value="{{old('email', $doctor->email)}}" />
               </div>
               <div class="form-group">
-                <label for="insurance">Insurance</label>
-                <input type="text" class="form-control" id="insurance" name="insurance" value="{{old('insurance', $patiant->insurance)}}" />
+                <label for="insurance">Start Date</label>
+                <input type="text" class="form-control" id="insurance" name="StartDate" value="{{old('insurance', $doctor->startDate)}}" />
               </div>
-              <a href="{{route('admin.patiant.index')}}" class="btn btn-link">Cancel</a>
+              <a href="{{route('admin.doctor.index')}}" class="btn btn-link">Cancel</a>
               <button type="submit" class="btn btn-primary float-right">Submit</button>
             </form>
           </div>

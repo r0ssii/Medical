@@ -1,6 +1,6 @@
 <?php
 # @Date:   2019-12-03T17:27:54+00:00
-# @Last modified time: 2019-12-04T13:10:17+00:00
+# @Last modified time: 2019-12-04T16:06:57+00:00
 
 
 
@@ -12,6 +12,14 @@ use Illuminate\Http\Request;
 use App\Doctor;
 class DoctorController extends Controller
 {
+  public function __construct()
+  {
+      $this->middleware('auth');
+      $this->middleware('role:admin');
+  }
+
+
+
     /**
      * Display a listing of the resource.
      *
@@ -88,7 +96,13 @@ class DoctorController extends Controller
      */
     public function edit($id)
     {
-        //
+      $doctor = Doctor::findOrFail($id);
+
+      return view('admin.books.show')->with([
+        'doctor' => $doctor
+
+
+      ]);
     }
 
     /**
@@ -100,7 +114,27 @@ class DoctorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+$doctor = Doctor::findOrFail($id);
+
+      $request->validate([
+        'title' => 'required|max:191',
+        'address' => 'required|max:191',
+        'phone' => 'required|integer|min:1900',
+        'email' => 'required|max:191',
+        'startDate' => 'required|max:191',
+
+
+      ])
+
+      $doctor = new Doctor();
+      $doctor->name = $request->input('name');
+      $doctor->address = $request->input('address');
+      $doctor->phone = $request->input('phone');
+      $doctor->email = $request->input('email');
+      $doctor->startDate = $request->input('startDate');
+
+      $doctor->save();
+
     }
 
     /**
@@ -111,6 +145,10 @@ class DoctorController extends Controller
      */
     public function destroy($id)
     {
-        //
+          $doctor = Doctor::findOrFail($id);
+
+          $doctor->delete();
+
+          return redirect()->route('admin.doctors.index');
     }
 }
