@@ -10,6 +10,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Doctor;
+use App\Patiant;
+
 class DoctorController extends Controller
 {
   public function __construct()
@@ -39,7 +41,16 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('admin.doctor.create');
+      $patiants = Patiant::all();
+
+
+        return view('admin.doctor.create')->with([
+
+'patiants' => $patiants;
+
+        ]);
+
+
     }
 
     /**
