@@ -1,4 +1,9 @@
 <?php
+# @Date:   2019-12-04T13:31:47+00:00
+# @Last modified time: 2019-12-06T12:03:53+00:00
+
+
+
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,7 +20,9 @@ class CreatePatiantTable extends Migration
     {
         Schema::create('patiant', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+              $table->string('name', 100);
+                $table->string('address', 100);
+              
         });
     }
 
