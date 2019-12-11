@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doctor extends Model
 {
-  public function Patiant(){
-return this->belongsTo('App\Patiant');
 
-  }
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
 
-
+    public function visit() {
+        return $this->hasMany('App\Visit');
+    }
 }

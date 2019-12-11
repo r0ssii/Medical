@@ -1,9 +1,4 @@
 <?php
-# @Date:   2019-12-03T14:07:04+00:00
-# @Last modified time: 2019-12-10T15:45:41+00:00
-
-
-
 
 namespace App;
 
@@ -13,6 +8,14 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+    /*
+    |--------------------------------------------------------------------------
+    | User Model
+    |--------------------------------------------------------------------------
+    |
+    | This model is responsible for handling users on the system.
+    | A user has one doctor or visit, and has one role.
+    */
     use Notifiable;
 
     /**
@@ -42,65 +45,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-public function Visits(){
-
-return $this->hasOne('App\Visits');
-
-}
-
-
-
-
-
-    public function roles()
-    {
-return $this->belongsToMany('App\Role', 'user_role');
+    public function roles() {
+        return $this->belongsToMany('App\Role', 'user_role');
     }
-
-    public function authorizeRoles($roles)
-    {
-      if(is_array($roles)){
-      return $this->hasAnyRoles($roles) || abort(401, 'This action is unauthorized');
-      }
-      return $this->hasRole($roles) || abort(401, 'This action is unauthorized');
+    public function doctor() {
+        return $this->hasOne('App\Doctor');
     }
-
-    public function hasRole($role)
-    {
-      return null !== $this->roles()->where('name', $role)->first();
+    public function patient() {
+        return $this->hasOne('App\Patient');
     }
-
-    public function hasAnyRole($roles)
-    {
-      return null !== $this->roles()->whereIn('name', $roles)->first();
-
-      if($user->authorizeRoles(['admin', 'subadmin', 'employee'])){
-
-
-      }
-      else
-      {
-
-
-      }
-
-
-
+    public function authorizeRoles($roles) {
+        if(is_array($roles)) {
+            return $this->hasAnyRoles($roles) || abort(401, 'This action is unauthorized');
+        }
+        return $this->hasRole($roles) || abort(401, 'This action is unauthorized');
     }
-
-//if($user->authorizeRoles(['admin', 'subadmin', 'employee'])){
-
-
-//}
-//{
-
-
-//}
-
-
-
-
-
-
-
+    public function hasRole($role) {
+        return null !== $this->roles()->where('name', $role)->first();
+    }
+    public function hasAnyRole($roles) {
+        return null !== $this->roles()->whereIn('name', $roles)->first();
+    }
 }

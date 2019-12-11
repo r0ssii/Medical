@@ -1,6 +1,6 @@
 <?php
 # @Date:   2019-12-03T16:29:37+00:00
-# @Last modified time: 2019-12-03T16:39:48+00:00
+# @Last modified time: 2019-12-11T14:57:43+00:00
 
 
 
@@ -20,9 +20,9 @@ class AuthRole
      */
     public function handle($request, Closure $next, String $role)
     {
-      if($request->user() || !$request->user()->hasRole($role)){
-        return   return redirect()->route('home');
-      }
+        if(!$request->user() || !$request->user()->hasRole($role)) {
+            return redirect()->route('home');
+        }
         return $next($request);
     }
 }

@@ -1,9 +1,4 @@
 <?php
-# @Date:   2019-12-03T14:13:47+00:00
-# @Last modified time: 2019-12-04T13:03:38+00:00
-
-
-
 
 namespace App\Http\Controllers;
 
@@ -13,6 +8,7 @@ class HomeController extends Controller
 {
     /**
      * Create a new controller instance.
+     * Any authenticated user may access this controller
      *
      * @return void
      */
@@ -22,24 +18,23 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Redirect the user to the correct homepage
+     * depending on the users role
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index(Request $request)
     {
-      $user = $request->user();
-      $home = 'user.home';
+        $user = $request->user();
+        $home = 'home';
 
-      if($user->hasRole('admin')){
-        $home = 'admin.home';
-
-      }
-      else{
-  $home = 'user.home';
-
-      }
+        if ($user->hasRole('admin')) {
+            $home = 'admin.index';
+        } else if($user->hasRole('doctor')) {
+            $home = 'doctor.doctors.index';
+        } else $home = 'patient.patients.index';
 
         return redirect()->route($home);
-      }
     }
+}

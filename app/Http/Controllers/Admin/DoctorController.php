@@ -1,102 +1,122 @@
 <?php
-# @Date:   2019-12-03T17:27:54+00:00
-# @Last modified time: 2019-12-04T16:06:57+00:00
-
-
-
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Doctor;
-use App\Patiant;
+use App\Http\Controllers\Controller;
+use App\Role;
+use App\User;
+use App\Visit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorController extends Controller
 {
-  public function __construct()
-  {
-      $this->middleware('auth');
-      $this->middleware('role:admin');
-  }
-
-
+    /**
+     * Only authenticated users with the admin role
+     * can use this controller
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('role:admin');
+    }
 
     /**
-     * Display a listing of the resource.
+     * Get all users who are doctors,
+     * and return a view with these users
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $doctors = Doctor::all();
+        $users = User::all();
+        $returnedUsers = array();
 
-        return view('admin.books.index')->with(['doctors' => $doctors ]);
+        foreach($users as $user) {
+            if($user->doctor) {
+                array_push($returnedUsers, $user);
+            }
+        }
+
+        return view('admin.doctors.index')->with([
+            'users' => $returnedUsers
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
+     /**
+     * Show the form for creating a new doctor.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-      $patiants = Patiant::all();
-
-
-        return view('admin.doctor.create')->with([
-
-'patiants' => $patiants;
-
-        ]);
-
-
+        return view('admin.doctors.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Validate and store a newly created
+     * user and doctor in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-      $request->validate([
-        'title' => 'required|max:191',
-        'address' => 'required|max:191',
-        'phone' => 'required|integer|min:1900',
-        'email' => 'required|max:191',
-        'startDate' => 'required|max:191',
+        $request->validate([
+            'first_name' => 'required|max:191|string',
+            'last_name' => 'required|max:191|string',
+            'email' => 'required|email|unique:users|max:191',
+            'password' => 'required|min:8',
+            'address' => 'required|max:255|string',
+            'mobile_number' => 'required|max:191|string',
+            'date_started' => 'required|date'
+        ]);
 
-      ])
+        $user = new User();
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->email = $request->input('email');
+        $user->address = $request->input('address');
+        $user->mobile_number = $request->input('mobile_number');
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
 
-      $doctor = new Doctor();
-      $doctor->name = $request->input('name');
-      $doctor->address = $request->input('address');
-      $doctor->phone = $request->input('phone');
-      $doctor->email = $request->input('email');
-      $doctor->startDate = $request->input('startDate');
+        $user->roles()->attach(Role::where('name', 'doctor')->first());
 
-      $doctor->save();
+        $doctor = new Doctor();
+        $doctor->date_started = $request->input('date_started');
+        $doctor->user_id = $user->id;
 
-      return redirect()->route('admin.doctor.index');
+        $doctor->save();
+
+        return redirect()->route('admin.doctors.show', $user->id);
     }
 
+
     /**
-     * Display the specified resource.
+     * Display the specified doctor, along
+     * with visits associated with this doctor
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-      $doctor = Doctor::findOrFail($id);
+        $user = User::findOrFail($id);
+        $visits = Visit::orderBy('date', 'DESC')->get();
+        $returnedVisits = array();
 
-      return view('admin.books.show')->with([
-        'doctor' => $doctor
+        foreach($visits as $visit) {
+            if($user->doctor->id == $visit->doctor_id) {
+                array_push($returnedVisits, $visit);
+            }
+        }
 
-
-      ]);
+        return view('admin.doctors.show')->with([
+            'user' => $user,
+            'visits' => $returnedVisits
+        ]);
     }
 
     /**
@@ -107,17 +127,15 @@ class DoctorController extends Controller
      */
     public function edit($id)
     {
-      $doctor = Doctor::findOrFail($id);
+        $user = User::findOrFail($id);
 
-      return view('admin.books.show')->with([
-        'doctor' => $doctor
-
-
-      ]);
+        return view('admin.doctors.edit')->with([
+            'user' => $user
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Validate and update the doctor in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -125,27 +143,30 @@ class DoctorController extends Controller
      */
     public function update(Request $request, $id)
     {
-$doctor = Doctor::findOrFail($id);
+        $user = User::findOrFail($id);
 
-      $request->validate([
-        'title' => 'required|max:191',
-        'address' => 'required|max:191',
-        'phone' => 'required|integer|min:1900',
-        'email' => 'required|max:191',
-        'startDate' => 'required|max:191',
+        $request->validate([
+            'first_name' => 'required|max:191',
+            'last_name' => 'required|max:191',
+            'email' => 'required|email|unique:users,email,'.$id.'|max:191',
+            'password' => 'min:8',
+            'address' => 'required|max:255|string',
+            'mobile_number' => 'required|max:191|string',
+            'date_started' => 'required|date'
+        ]);
+
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->email = $request->input('email');
+        $user->mobile_number = $request->input('mobile_number');
+        $user->address = $request->input('address');
+        $user->doctor->date_started = $request->input('date_started');
+
+        $user->save();
+        $user->doctor->save();
 
 
-      ])
-
-      $doctor = new Doctor();
-      $doctor->name = $request->input('name');
-      $doctor->address = $request->input('address');
-      $doctor->phone = $request->input('phone');
-      $doctor->email = $request->input('email');
-      $doctor->startDate = $request->input('startDate');
-
-      $doctor->save();
-
+        return redirect()->route('admin.doctors.show', $user->id);
     }
 
     /**
@@ -156,10 +177,9 @@ $doctor = Doctor::findOrFail($id);
      */
     public function destroy($id)
     {
-          $doctor = Doctor::findOrFail($id);
+        $user = User::findOrFail($id);
+        $user->delete();
 
-          $doctor->delete();
-
-          return redirect()->route('admin.doctors.index');
+        return redirect()->route('admin.doctors.index');
     }
 }

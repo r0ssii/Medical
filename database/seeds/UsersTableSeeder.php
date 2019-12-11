@@ -1,4 +1,9 @@
 <?php
+# @Date:   2019-12-03T14:37:21+00:00
+# @Last modified time: 2019-12-11T13:53:56+00:00
+
+
+
 
 use Illuminate\Database\Seeder;
 use App\User;
@@ -18,8 +23,8 @@ class UsersTableSeeder extends Seeder
         $role_patient = Role::where('name', 'patient')->first();
 
         $admin = new User ();
-        $admin->first_name = 'Mo';
-        $admin->last_name = 'Che';
+        $admin->first_name = 'Garry';
+        $admin->last_name = 'Long';
         $admin->email = 'testadmin@medical.ie';
         $admin->mobile_number = $this->random_phone();
         $admin->address = '45 Granville Road, Looper, Dublin';
