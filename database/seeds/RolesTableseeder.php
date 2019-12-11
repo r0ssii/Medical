@@ -1,15 +1,9 @@
 <?php
-# @Date:   2019-12-03T14:37:50+00:00
-# @Last modified time: 2019-12-03T14:58:32+00:00
-
-
-
 
 use Illuminate\Database\Seeder;
 use App\Role;
 
-
-class RolesTableseeder extends Seeder
+class RolesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,14 +12,20 @@ class RolesTableseeder extends Seeder
      */
     public function run()
     {
-      $role_admin = new Role();
-      $role_admin->name = 'admin';
-      $role_admin->discription = 'An administrator user';
-      $role_admin->save();
+        $role_admin = new Role();
+        $role_admin->name = 'admin';
+        $role_admin->description = 'An administrator user';
+        $role_admin->save();
 
-      $role_user = new Role();
-      $role_user->name = 'user';
-      $role_user->discription = 'An ordinary user';
-      $role_user->save();
+        $role_doctor = new Role();
+        $role_doctor->name = 'doctor';
+        $role_doctor->description = 'A doctor';
+        $role_doctor->save();
+
+        $role_patient = new Role();
+        $role_patient->name = 'patient';
+        $role_patient->description = 'A patient';
+        $role_patient->save();
+
     }
 }

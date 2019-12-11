@@ -1,6 +1,6 @@
 <?php
-# @Date:   2019-12-03T14:07:04+00:00
-# @Last modified time: 2019-12-06T12:29:33+00:00
+# @Date:   2019-12-05T09:28:32+00:00
+# @Last modified time: 2019-12-11T13:25:54+00:00
 
 
 
@@ -16,8 +16,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(RolesTableseeder::class);
-         $this->call(UsersTableSeeder::class);
-        $this->call(PatiantsTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
+        $this->call(DoctorsTableSeeder::class);
+        $this->call(PatientsTableSeeder::class);
+        $this->call(VisitsTableSeeder::class);
     }
 }

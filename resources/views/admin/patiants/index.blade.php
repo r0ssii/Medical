@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                     <div class="card-header">
-                        Doctors
-                    <a href="{{ route('admin.doctors.create') }}" class="btn btn-primary float-right">Add</a>
+                        Patients
+                    <a href="{{ route('admin.patients.create') }}" class="btn btn-primary float-right">Add</a>
                     </div>
                     <div class="card-body">
                         @if (count($users) === 0)
@@ -17,7 +17,6 @@
                                 <thead>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Date Started</th>
                                     <th>Actions</th>
                                 </thead>
                                 <tbody>
@@ -26,11 +25,11 @@
                                         <tr data-id="{{ $user->id }}">
                                             <td>{{ $user->first_name }} {{ $user->last_name }} @if(Auth::user()->id == $user->id) (You) @endif</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $user->doctor->date_started}}</td>
+
                                             <td>
-                                                <a href="{{ route('admin.doctors.show', $user->id) }}" class="btn btn-default">View</a>
-                                                <a href="{{ route('admin.doctors.edit', $user->id) }}" class="btn btn-warning">Edit</a>
-                                            <form style="display:inline-block" method="POST" action="{{ route('admin.doctors.destroy', $user->id) }}">
+                                                <a href="{{ route('admin.patients.show', $user->id) }}" class="btn btn-default">View</a>
+                                                <a href="{{ route('admin.patients.edit', $user->id) }}" class="btn btn-warning">Edit</a>
+                                            <form style="display:inline-block" method="POST" action="{{ route('admin.patients.destroy', $user->id) }}">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <button type="submit" class="form-control btn btn-danger">Delete</button>

@@ -1,3 +1,19 @@
+{{--
+ * --------------------
+ * Author Name: Eoan O'Dea
+ * Author Email: eoan@wspace.ie
+ * Date Created: Tuesday December 3rd 2019 2:11:17 pm
+ * --------------------
+ * Project Name: WAFCA1MedicalCentre
+ * Version: 1.0.0
+ * --------------------
+ * File Name: edit.blade.php
+ * Last Modified: Tuesday December 3rd 2019 2:21:33 pm
+ * --------------------
+ * Copyright (c) 2019 WebSpace
+ * --------------------
+--}}
+
 @extends('layouts.app')
 
 @section('content')
@@ -18,7 +34,7 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form method="POST" action="{{ route('admin.doctors.update', $user->id) }}">
+                            <form method="POST" action="{{ route('doctor.doctors.update', $user->id) }}">
                                 <input type="hidden" name="_method" value="PUT">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-group">
@@ -45,7 +61,7 @@
                                     <label for="date_started">Date Started</label>
                                     <input type="date" class="form-control" id="date_started" name="date_started" value="{{ old('date_started', $user->doctor->date_started) }}"/>
                                 </div>
-                                <a href="{{ route('admin.doctors.index') }}" class="btn btn-link">Cancel</a>
+                                <a href="{{ route('doctor.doctors.show', $user->id) }}" class="btn btn-link">Cancel</a>
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
                             </form>
                         </div>
@@ -54,3 +70,5 @@
         </div>
     </div>
 @endsection
+
+

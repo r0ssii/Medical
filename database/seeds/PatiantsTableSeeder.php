@@ -1,40 +1,30 @@
 <?php
-# @Date:   2019-12-06T12:14:42+00:00
-# @Last modified time: 2019-12-06T12:17:56+00:00
 
-
-
-
+use App\Patient;
+use App\Role;
 use Illuminate\Database\Seeder;
-use App\Patiant;
 
-class PatiantsTableSeeder extends Seeder
+class PatientsTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Creates a patient for each user that has a patient role
+     * in the database
      *
      * @return void
      */
     public function run()
     {
-        $patiant - new Patiant();
-        $patiant->name = "John Nevin";
-        $patiant->address = "123 Fake Street";
-        $patiant->save();
+        $role_patient = Role::where('name', 'patient')->first();
+        $faker = \Faker\Factory::create();
 
-        $patiant - new Patiant();
-        $patiant->name = "tim daly";
-        $patiant->address = "69 Fake Road";
-        $patiant->save();
+        foreach($role_patient->users as $user) {
+            $patient = new Patient();
+            $patient->has_insurance = false;
+            $patient->insurance_company = $faker->company;
+            $patient->policy_number = $faker->numberBetween(50000, 100000);
 
-        $patiant - new Patiant();
-        $patiant->name = "John Joe";
-        $patiant->address = "43 Fake Glen";
-        $patiant->save();
-
-        $patiant - new Patiant();
-        $patiant->name = "Garry Brod";
-        $patiant->address = "13 FakeNess";
-        $patiant->save();
+            $patient->user_id = $user->id;
+            $patient->save();
+        }
     }
 }

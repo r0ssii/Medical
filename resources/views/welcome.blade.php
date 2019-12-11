@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -9,11 +8,13 @@
                 <div class="card-header">Welcome</div>
 
                 <div class="card-body">
-
-                    Welcome to the medical center! <a href="{{ route('admin.doctor.index') }}">Doctors</a>
-
-                  <br/>
-                learn more  <a href="{{ route('about') }}">About Us</a>
+                  Medical Centre</a>
+                    <br />
+                    <br />
+                    <div class="float-right">
+                        <a class="btn btn-primary" href={{ route('login')}}>Login</a>
+                        <a class="btn btn-secondary" href={{ route('about') }}>Learn more</a>
+                    </div>
                 </div>
             </div>
         </div>

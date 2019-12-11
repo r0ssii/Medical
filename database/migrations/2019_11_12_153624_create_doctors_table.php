@@ -1,9 +1,4 @@
 <?php
-# @Date:   2019-12-03T17:19:11+00:00
-# @Last modified time: 2019-12-04T13:08:02+00:00
-
-
-
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -12,19 +7,24 @@ use Illuminate\Support\Facades\Schema;
 class CreateDoctorsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Migration for creating the doctors table
      *
      * @return void
      */
     public function up()
     {
         Schema::create('doctors', function (Blueprint $table) {
-          $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('address');
-            $table->integer('phone')->unsigned();
-            $table->string('startDate')->unique();
+            $table->bigIncrements('id');
             $table->timestamps();
+            $table->date('date_started');
+
+            $table->bigInteger('user_id')->unsigned();
+            $table
+                ->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 

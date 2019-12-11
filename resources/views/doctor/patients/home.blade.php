@@ -14,7 +14,9 @@
                         </div>
                     @endif
 
-                    You are logged in as an ordinary user!
+                    You are logged in as a Patient!
+                    <br />
+                    <a class="btn btn-primary"href="{{ route('patient.patients.show') }}">View Profile</a>
                 </div>
             </div>
         </div>
