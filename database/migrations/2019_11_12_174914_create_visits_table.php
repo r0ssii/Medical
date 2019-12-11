@@ -13,6 +13,7 @@ class CreateVisitsTable extends Migration
      */
     public function up()
     {
+        /**This creates the table*/
         Schema::create('visits', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('notes', 255);
@@ -22,7 +23,7 @@ class CreateVisitsTable extends Migration
             $table->time('time', 0)->nullable();
             $table->boolean('cancelled')->default(false);
             $table->timestamps();
-            
+
             $table->bigInteger('doctor_id')->unsigned();
             $table->bigInteger('patient_id')->unsigned();
 

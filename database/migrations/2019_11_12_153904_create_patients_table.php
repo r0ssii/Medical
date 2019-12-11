@@ -13,6 +13,7 @@ class CreatePatientsTable extends Migration
      */
     public function up()
     {
+        /**This Creates patiant table*/
         Schema::create('patients', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
