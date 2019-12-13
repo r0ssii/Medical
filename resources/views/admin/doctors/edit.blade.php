@@ -6,7 +6,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="card">
                         <div class="card-header">
-                            Edit user
+                            <b>Edit user</b>
                         </div>
                         <div class="card-body">
                             @if ($errors->any())
@@ -45,7 +45,7 @@
                                     <label for="date_started">Date Started</label>
                                     <input type="date" class="form-control" id="date_started" name="date_started" value="{{ old('date_started', $user->doctor->date_started) }}"/>
                                 </div>
-                                <a href="{{ route('admin.doctors.index') }}" class="btn btn-link">Cancel</a>
+                                <a href="{{ route('admin.doctors.index') }}" class="btn btn-danger">Cancel</a>
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
                             </form>
                         </div>

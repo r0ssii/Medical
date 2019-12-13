@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                     <div class="card-header">
-                        Doctors
+                      <b>  Doctors </b>
                     <a href="{{ route('admin.doctors.create') }}" class="btn btn-primary float-right">Add</a>
                     </div>
                     <div class="card-body">

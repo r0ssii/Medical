@@ -10,7 +10,20 @@
 
                 <div class="card-body">
 
-                    This is the about page!
+                    Address:<br>
+                    387 Warner Street.
+                    <br>
+                    Miami.
+                    <br>
+                    Florida.
+                    <br><br>
+
+                    Phone:<br>
+                    305-975-2069
+                    <br>
+
+
+
                 </div>
             </div>
         </div>

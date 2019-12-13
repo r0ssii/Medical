@@ -6,7 +6,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="card">
                         <div class="card-header">
-                            Edit visit
+                          <b>  Edit visit </b>
                         </div>
                         <div class="card-body">
                             @if ($errors->any())
@@ -26,10 +26,10 @@
                                     <br />
                                     <select name="doctor_id">
                                         @foreach ($doctors as $doctor)
-                                            <option 
-                                                value={{ $doctor->id }} 
-                                                {{ (old('doctor_id', $visit->doctor_id) == $doctor->id) 
-                                                    ? "selected" 
+                                            <option
+                                                value={{ $doctor->id }}
+                                                {{ (old('doctor_id', $visit->doctor_id) == $doctor->id)
+                                                    ? "selected"
                                                     : "" }}
                                             >{{ $doctor->user->first_name }} {{ $doctor->user->last_name }}</option>
                                         @endforeach
@@ -40,10 +40,10 @@
                                     <br />
                                     <select name="patient_id">
                                         @foreach ($patients as $patient)
-                                            <option 
-                                                value={{ $patient->id }} 
-                                                {{ (old('patient_id', $visit->patient_id) == $patient->id) 
-                                                    ? "selected" 
+                                            <option
+                                                value={{ $patient->id }}
+                                                {{ (old('patient_id', $visit->patient_id) == $patient->id)
+                                                    ? "selected"
                                                     : "" }}
                                             >{{ $patient->user->first_name }} {{ $patient->user->last_name }}</option>
                                         @endforeach
@@ -69,7 +69,7 @@
                                     <label for="notes">Notes</label>
                                     <textarea class="form-control" id="notes" name="notes" >{{ old('notes', $visit->notes) }}</textarea>
                                 </div>
-                                <a href="{{ route('admin.visits.index') }}" class="btn btn-link">Cancel</a>
+                                <a href="{{ route('admin.visits.index') }}" class="btn btn-danger">Cancel</a>
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
                             </form>
                         </div>

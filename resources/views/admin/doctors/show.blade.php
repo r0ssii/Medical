@@ -6,7 +6,10 @@
         <div class="col-md-6">
             <div class="card">
                     <div class="card-header">
-                        {{ $user->doctor ? 'Doctor - ' : ''}}{{ $user->first_name }} {{ $user->last_name }} @if(Auth::user()->id == $user->id) (You) @endif
+                        {{ $user->doctor ? 'Doctor - ' : ''}}
+                        {{ $user->first_name }} {{ $user->last_name }}
+                        @if(Auth::user()->id == $user->id) (You)
+                        @endif
                     </div>
                     <div class="card-body">
 

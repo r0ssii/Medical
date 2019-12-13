@@ -58,7 +58,7 @@
                                         <input type="text" class="form-control" id="policy_number" name="policy_number" value="{{ old('policy_number') }}"/>
                                     </div>
                                 </div>
-                                <a href="{{ route('doctor.patients.index') }}" class="btn btn-link">Cancel</a>
+                                <a href="{{ route('doctor.patients.index') }}" class="btn btn-danger">Cancel</a>
                                 <button type="submit" class="btn btn-primary float-right">Submit</button>
                             </form>
                         </div>

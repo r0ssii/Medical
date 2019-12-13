@@ -14,13 +14,9 @@
                         </div>
                     @endif
 
-                    You have admin right on this website!
+                    You are logged in as a Patient!
                     <br />
-                    <br />
-                    <div class="float-left">
-                        <a href="{{ route('admin.doctors.index') }}" class="btn btn-primary">Doctors</a>
-                        <a href="{{ route('admin.patients.index') }}" class="btn btn-secondary">Patients</a>
-                    </div>
+                    <a class="btn btn-primary"href="{{ route('patient.patients.show') }}">View Profile</a>
                 </div>
             </div>
         </div>
